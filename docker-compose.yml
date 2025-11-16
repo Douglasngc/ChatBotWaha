@@ -34,11 +34,6 @@ services:
     volumes:
       - waha_sessions:/app/.sessions
       - waha_media:/app/.media
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/healthz"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
     ports:
       - "3000:3000"
 
@@ -55,6 +50,12 @@ services:
       - n8n_data:/home/node/.n8n
     ports:
       - "5678:5678"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5678/healthz"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
 volumes:
   pgdata:
